@@ -5,18 +5,22 @@ import de.aboutflash.archerytime.remoteclient.model.CountdownViewModel;
 import de.aboutflash.archerytime.remoteclient.model.StartupViewModel;
 import de.aboutflash.archerytime.remoteclient.net.Listener;
 import de.aboutflash.archerytime.remoteclient.ui.CountDownScreen;
-import de.aboutflash.archerytime.remoteclient.ui.StopScreen;
 import de.aboutflash.archerytime.remoteclient.ui.StartupScreen;
+import de.aboutflash.archerytime.remoteclient.ui.StopScreen;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import java.util.EnumMap;
@@ -30,6 +34,7 @@ import java.util.logging.Logger;
  *
  * @author falk@aboutflash.de on 22.11.2017.
  */
+@SuppressWarnings("Duplicates")
 public class ArcheryTimeDisplay extends Application {
 
   private final Logger log = Logger.getLogger("ArcheryTimeDisplay");
@@ -125,31 +130,13 @@ public class ArcheryTimeDisplay extends Application {
     primaryStage.setWidth(DEFAULT_SIZE.getWidth());
     primaryStage.setHeight(DEFAULT_SIZE.getHeight());
 
-    final Scene rootScene = new Scene(rootPane);
+    final Scene rootScene = new Scene(new Group(rootPane));
     primaryStage.setScene(rootScene);
     primaryStage.show();
 
-//    primaryStage.widthProperty().addListener(observable -> applyScreenScale());
-//    primaryStage.heightProperty().addListener(observable -> applyScreenScale());
-
     setUserAgentStylesheet(getClass().getResource("display.css").toExternalForm());
-  }
 
-  private void applyScreenScale() {
-    final double factor = getFactor();
-
-    rootPane.setScaleX(factor);
-    rootPane.setScaleY(factor);
-  }
-
-  private double getFactor() {
-    final Rectangle2D bounds = new Rectangle2D(0, 0, primaryStage.getWidth(), primaryStage.getHeight());
-
-    final double wFactor = bounds.getWidth() / DEFAULT_SIZE.getWidth();
-    final double hFactor = bounds.getHeight() / DEFAULT_SIZE.getHeight();
-    final double factor = Math.min(wFactor, hFactor);
-    System.out.printf("scale factor %10.3f %n", factor);
-    return factor;
+    letterbox(rootScene, rootPane);
   }
 
   private void registerHotKeys() {
@@ -167,7 +154,7 @@ public class ArcheryTimeDisplay extends Application {
     // exit Ctrl-C
     primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
       if (event.getCode() == KeyCode.C
-          && event.isControlDown()) {
+              && event.isControlDown()) {
         Platform.exit();
         System.exit(0);
       }
@@ -231,8 +218,59 @@ public class ArcheryTimeDisplay extends Application {
 
   private boolean isNewScreenInstanceRequired() {
     return activeScreen == null
-        || !activeScreen.getClass()
-        .equals(screen2view.get(getScreenState().getScreen()));
+            || !activeScreen.getClass()
+            .equals(screen2view.get(getScreenState().getScreen()));
+  }
+
+
+  private void letterbox(final Scene scene, final Pane contentPane) {
+    final double initWidth = scene.getWidth();
+    final double initHeight = scene.getHeight();
+    final double ratio = initWidth / initHeight;
+
+    SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+    scene.widthProperty().addListener(sizeListener);
+    scene.heightProperty().addListener(sizeListener);
+  }
+
+  private static class SceneSizeChangeListener implements ChangeListener<Number> {
+    private final Scene scene;
+    private final double ratio;
+    private final double initHeight;
+    private final double initWidth;
+    private final Pane contentPane;
+
+    public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
+      this.scene = scene;
+      this.ratio = ratio;
+      this.initHeight = initHeight;
+      this.initWidth = initWidth;
+      this.contentPane = contentPane;
+    }
+
+    @Override
+    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+      final double newWidth = scene.getWidth();
+      final double newHeight = scene.getHeight();
+
+      double scaleFactor =
+              newWidth / newHeight > ratio
+                      ? newHeight / initHeight
+                      : newWidth / initWidth;
+
+      if (scaleFactor >= 1) {
+        Scale scale = new Scale(scaleFactor, scaleFactor);
+        scale.setPivotX(0);
+        scale.setPivotY(0);
+        scene.getRoot().getTransforms().setAll(scale);
+
+        contentPane.setPrefWidth(newWidth / scaleFactor);
+        contentPane.setPrefHeight(newHeight / scaleFactor);
+      } else {
+        contentPane.setPrefWidth(Math.max(initWidth, newWidth));
+        contentPane.setPrefHeight(Math.max(initHeight, newHeight));
+      }
+    }
   }
 
 }

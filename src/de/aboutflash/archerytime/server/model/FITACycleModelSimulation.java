@@ -18,7 +18,7 @@ public class FITACycleModelSimulation implements FITACycleModel {
 
   private static final double MILLIS_TO_SECONDS = 0.001;
 
-  private final static double SIM_ROUND_TIME = 120_000.0;
+  private final static double SIM_ROUND_TIME = 20_000.0;
 
   private final AtomicInteger iterations = new AtomicInteger(0);
 
