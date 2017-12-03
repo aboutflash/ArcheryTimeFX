@@ -1,0 +1,10 @@
+@import "../scss/colors";
+
+.control-screen {
+  -fx-background-color: $color-bg-startup;
+  .text {
+    -fx-fill: $color-font;
+    -fx-text-fill: $color-font;
+    -fx-font-size: 1.2em;
+  }
+}

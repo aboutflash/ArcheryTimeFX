@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="display">
+    <output-path>$PROJECT_DIR$/out/artifacts/archerytime</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="de.aboutflash.archerytime.remoteclient.app.ArcheryTimeDisplay" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="ArcheryTime Display" />
+        <option name="vendor" value="aboutflash.de" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="display.jar">
+        <element id="module-output" name="ArcheryTimeFX" />
+        <element id="library" level="project" name="com.fasterxml.jackson.core:jackson-annotations:2.8.4" />
+        <element id="library" level="project" name="com.fasterxml.jackson.core:jackson-core:2.8.4" />
+        <element id="library" level="project" name="com.fasterxml.jackson.core:jackson-databind:2.8.4" />
+        <element id="library" level="project" name="com.google.api.client:google-api-client-repackaged-com-google-common-base:1.2.3-alpha" />
+      </element>
+    </root>
+  </artifact>
+</component>

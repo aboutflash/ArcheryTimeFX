@@ -1,0 +1,75 @@
+/*!!! This must be exactly the name of the font file, otherwise it will simply not display
+Windows File Properties > Details > Title
+*/
+/************************************************
+  font declarations
+************************************************/
+@font-face {
+  font-family: "Roboto Black";
+  font-style: normal;
+  font-weight: bold;
+  src: local("roboto-black.ttf") url("roboto-black.ttf") format("truetype"); }
+
+.startup-screen {
+  -fx-background-color: #2E5587; }
+  .startup-screen .text {
+    -fx-font-family: "Roboto Black", sans-serif;
+    -fx-text-fill: #FFFFFF;
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 2em; }
+
+.stop-screen {
+  -fx-background-color: #87181B; }
+  .stop-screen__label {
+    -fx-alignment: center; }
+    .stop-screen__label .text {
+      -fx-font-family: "Roboto Black", sans-serif;
+      -fx-text-fill: #FFFFFF;
+      -fx-fill: #FFFFFF;
+      -fx-font-size: 22em; }
+  .stop-screen__label-shade {
+    -fx-alignment: center;
+    -fx-translate-x: 1em;
+    -fx-translate-y: 1em; }
+    .stop-screen__label-shade .text {
+      -fx-font-family: "Roboto Black", sans-serif;
+      -fx-text-fill: rgba(0, 0, 0, 0.2);
+      -fx-fill: rgba(0, 0, 0, 0.2);
+      -fx-font-size: 22em; }
+
+.countdown-screen {
+  -fx-padding: 3em;
+  -fx-background-color: #198031;
+  -fx-hgap: 10em; }
+  .countdown-screen .text {
+    -fx-font-family: "Roboto Black", sans-serif;
+    -fx-text-fill: #FFFFFF;
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 22em; }
+  .countdown-screen__counter {
+    -fx-alignment: center-right; }
+  .countdown-screen__counter-shade {
+    -fx-alignment: center-right;
+    -fx-translate-x: 1em;
+    -fx-translate-y: 1em; }
+    .countdown-screen__counter-shade .text {
+      -fx-font-family: "Roboto Black", sans-serif;
+      -fx-text-fill: rgba(0, 0, 0, 0.2);
+      -fx-fill: rgba(0, 0, 0, 0.2);
+      -fx-font-size: 22em; }
+  .countdown-screen:steady {
+    -fx-background-color: #87181B; }
+  .countdown-screen:up30 {
+    -fx-background-color: #BA9936; }
+
+.sequence-display {
+  -fx-min-width: 25em;
+  -fx-alignment: left; }
+  .sequence-display__ab SVGPath, .sequence-display__cd SVGPath {
+    -fx-fill: rgba(255, 255, 255, 0.2); }
+  .sequence-display__ab:active SVGPath, .sequence-display__cd:active SVGPath {
+    -fx-fill: #FFFFFF; }
+  .sequence-display__ab {
+    -fx-translate-y: -60px; }
+  .sequence-display__cd {
+    -fx-translate-y: 60px; }

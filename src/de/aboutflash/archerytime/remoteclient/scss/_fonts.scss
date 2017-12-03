@@ -1,0 +1,36 @@
+/*!!! This must be exactly the name of the font file, otherwise it will simply not display
+Windows File Properties > Details > Title
+*/
+$font-family-roboto-black: "Roboto Black";
+/************************************************
+  font declarations
+************************************************/
+
+@font-face {
+  font-family: $font-family-roboto-black;
+  font-style: normal;
+  font-weight: bold;
+  src: url('/fonts/roboto-black.ttf') format('truetype');
+}
+
+$label-size-countdown: 22em;
+$label-size-text: 2em;
+
+@mixin font($family, $color, $size) {
+  -fx-font-family: $family, sans-serif;
+
+  @if $color {
+    -fx-text-fill: $color;
+    -fx-fill: $color; // this is needed for text nodes
+  }
+
+  -fx-font-size: $size;
+}
+
+@mixin fontStartup($color: $color-font) {
+  @include font($font-family-roboto-black, $color, $label-size-text);
+}
+
+@mixin fontCounter($color: $color-font) {
+  @include font($font-family-roboto-black, $color, $label-size-countdown);
+}

@@ -1,0 +1,6 @@
+.control-screen {
+  -fx-background-color: #2E5587; }
+  .control-screen .text {
+    -fx-fill: #FFFFFF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.2em; }

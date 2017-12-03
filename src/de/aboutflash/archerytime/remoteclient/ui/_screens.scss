@@ -1,0 +1,60 @@
+@import "../scss/colors";
+@import "../scss/fonts";
+
+.startup-screen {
+  .text {
+    @include fontStartup($color-font);
+  }
+  -fx-background-color: $color-bg-startup;
+}
+
+.stop-screen {
+  &__label {
+    .text {
+      @include fontCounter($color-font);
+    }
+    -fx-alignment: center;
+  }
+  &__label-shade {
+    .text {
+      @include fontCounter($color-font-shadow);
+    }
+    -fx-alignment: center;
+    -fx-translate-x: 1em;
+    -fx-translate-y: 1em;
+  }
+  -fx-background-color: $color-bg-stop;
+}
+
+.countdown-screen {
+  -fx-padding: 3em;
+
+  .text {
+    @include fontCounter($color-font-countdown);
+  }
+  -fx-background-color: $color-bg-shooting;
+  -fx-hgap: 10em;
+
+  &__counter {
+    -fx-alignment: center-right;
+  }
+
+  &__counter-shade {
+    .text {
+      @include fontCounter($color-font-countdown-shadow);
+    }
+    -fx-alignment: center-right;
+    -fx-translate-x: 1em;
+    -fx-translate-y: 1em;
+  }
+
+  //noinspection CssInvalidPseudoSelector
+  &:steady {
+    -fx-background-color: $color-bg-steady;
+  }
+
+  //noinspection CssInvalidPseudoSelector
+  &:up30 {
+    -fx-background-color: $color-bg-shooting-30;
+  }
+}

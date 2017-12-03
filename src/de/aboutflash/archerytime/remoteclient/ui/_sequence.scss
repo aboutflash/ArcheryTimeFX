@@ -1,0 +1,24 @@
+.sequence-display {
+  -fx-min-width: 25em;
+  -fx-alignment: left;
+
+  &__ab, &__cd {
+    SVGPath {
+      -fx-fill: $color-bg-target-inactive;
+    }
+    //noinspection CssInvalidPseudoSelector
+    &:active {
+      SVGPath {
+        -fx-fill: $color-bg-target-active;
+      }
+    }
+  }
+
+  &__ab {
+    -fx-translate-y: -60px;
+  }
+
+  &__cd {
+    -fx-translate-y: 60px;
+  }
+}
