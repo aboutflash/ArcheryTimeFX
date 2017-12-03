@@ -134,6 +134,7 @@ public class ArcheryTimeDisplay extends Application {
     primaryStage.setScene(rootScene);
     primaryStage.show();
 
+    log.info(getClass().getResource("display.css").toExternalForm());
     setUserAgentStylesheet(getClass().getResource("display.css").toExternalForm());
 
     letterbox(rootScene, rootPane);
@@ -228,7 +229,7 @@ public class ArcheryTimeDisplay extends Application {
     final double initHeight = scene.getHeight();
     final double ratio = initWidth / initHeight;
 
-    SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+    ArcheryTimeDisplay.SceneSizeChangeListener sizeListener = new ArcheryTimeDisplay.SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
     scene.widthProperty().addListener(sizeListener);
     scene.heightProperty().addListener(sizeListener);
   }

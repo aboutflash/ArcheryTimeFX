@@ -8,7 +8,7 @@ Windows File Properties > Details > Title
   font-family: "Roboto Black";
   font-style: normal;
   font-weight: bold;
-  src: url("roboto-black.ttf") format("truetype"); }
+  src: local("roboto-black.ttf") url("roboto-black.ttf") format("truetype"); }
 
 .startup-screen {
   -fx-background-color: #2E5587; }
